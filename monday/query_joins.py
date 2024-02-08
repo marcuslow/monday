@@ -638,9 +638,12 @@ def get_items_page_query(board_id, limit=500, cursor=None):
                     }}
                     column_values {{
                         id
+                        type
                         text
                         value
-                        type
+                        ... on MirrorValue {{
+                            display_value
+                        }}
                     }}
                 }}
             }}
