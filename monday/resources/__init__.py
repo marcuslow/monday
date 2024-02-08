@@ -1,27 +1,11 @@
-from .boards import BoardResource
-from .columns import ColumnsResource
-from .complexity import ComplexityResource
-from .custom import CustomResource
-from .groups import GroupResource
 from .items import ItemResource
-from .me import MeResource
-from .notification import NotificationResource
-from .tags import TagResource
 from .updates import UpdateResource
+from .tags import TagResource
+from .boards import BoardResource
 from .users import UserResource
+from .groups import GroupResource
+from .complexity import ComplexityResource
 from .workspaces import WorkspaceResource
+from .notification import NotificationResource
 
-__all__ = [
-    'BoardResource',
-    'ColumnsResource',
-    'ComplexityResource',
-    'CustomResource',
-    'GroupResource',
-    'ItemResource',
-    'MeResource',
-    'NotificationResource',
-    'TagResource',
-    'UpdateResource',
-    'UserResource',
-    'WorkspaceResource',
-]
+__all__ = ['ItemResource', 'UpdateResource', 'TagResource', 'BoardResource', 'UserResource', 'GroupResource', 'ComplexityResource', 'WorkspaceResource', 'NotificationResource']

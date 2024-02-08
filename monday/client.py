@@ -7,36 +7,23 @@ monday.client
 """
 
 from .__version__ import __version__
-from .resources import CustomResource, ItemResource, ColumnsResource, UpdateResource, TagResource, BoardResource, \
-    UserResource, GroupResource, ComplexityResource, WorkspaceResource, NotificationResource, MeResource
-
-_DEFAULT_HEADERS = {
-    "API-Version": "2023-10"
-}
+from .resources import ItemResource, UpdateResource, TagResource, BoardResource, UserResource, GroupResource, ComplexityResource, WorkspaceResource, NotificationResource
 
 
 class MondayClient:
-    def __init__(self, token, headers=None):
+    def __init__(self, token):
         """
-        :param token: API token for the new :class:`BaseResource` object.
-        :param headers: (optional) headers for the new :class:`BaseResource` object.
+        :param token: API Token for the new :class:`BaseResource` object.
         """
-
-        if not headers:
-            headers = _DEFAULT_HEADERS.copy()
-
-        self.custom = CustomResource(token=token, headers=headers)
-        self.items = ItemResource(token=token, headers=headers)
-        self.columns = ColumnsResource(token=token, headers=headers)
-        self.updates = UpdateResource(token=token, headers=headers)
-        self.tags = TagResource(token=token, headers=headers)
-        self.boards = BoardResource(token=token, headers=headers)
-        self.users = UserResource(token=token, headers=headers)
-        self.groups = GroupResource(token=token, headers=headers)
-        self.complexity = ComplexityResource(token=token, headers=headers)
-        self.workspaces = WorkspaceResource(token=token, headers=headers)
-        self.notifications = NotificationResource(token=token, headers=headers)
-        self.me = MeResource(token=token, headers=headers)
+        self.items = ItemResource(token=token)
+        self.updates = UpdateResource(token=token)
+        self.tags = TagResource(token=token)
+        self.boards = BoardResource(token=token)
+        self.users = UserResource(token=token)
+        self.groups = GroupResource(token=token)
+        self.complexity = ComplexityResource(token=token)
+        self.workspaces = WorkspaceResource(token=token)
+        self.notifications = NotificationResource(token=token)
 
     def __str__(self):
         return f'MondayClient {__version__}'
