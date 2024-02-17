@@ -7,7 +7,8 @@ from monday.query_joins import (
     get_columns_by_board_query,
     create_board_by_workspace_query,
     get_items_page_query, #marcus
-    get_groups_by_board_query #marcus
+    get_groups_by_board_query, #marcus
+    get_updates_for_item_query #marcus
 )
 from monday.resources.types import BoardKind, BoardState, BoardsOrderBy
 
@@ -38,7 +39,11 @@ class BoardResource(BaseResource):
         items = response["data"]["boards"][0]["items_page"]["items"]
         next_cursor = response["data"]["boards"][0]["items_page"]["cursor"]
         return items, next_cursor
-
+    
+    # marcus
+    def fetch_item_update(self, item_id, limit = 100) :
+        query = get_updates_for_item_query(item_id=item_id, limit=limit)
+        return self.client.execute(query)
 
     def fetch_columns_by_board_id(self, board_ids):
         query = get_columns_by_board_query(board_ids)

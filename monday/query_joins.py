@@ -224,6 +224,47 @@ def create_update_query(item_id, update_value):
     return query
 
 
+# marcus
+def get_updates_for_item_query(item_id, limit=100):
+
+    query = f"""
+    query {{
+        items(ids: [{item_id}]) {{
+            updates(limit: {limit}) {{
+                id
+                body
+                created_at
+                updated_at
+                creator {{
+                  id
+                  name
+                  email
+                }}
+                assets {{
+                  id
+                  name
+                  url
+                  file_extension
+                  file_size
+                }}
+                replies {{
+                  id
+                  body
+                  creator {{
+                    id
+                    name
+                    email
+                  }}
+                  created_at
+                  updated_at
+                }}
+            }}
+        }}
+    }}"""
+    return query
+
+
+"""
 def get_updates_for_item_query(board, item, limit):
     query = '''query
     {boards (ids: %s)
@@ -262,7 +303,7 @@ def get_updates_for_item_query(board, item, limit):
     }''' % (board, item, limit)
 
     return query
-
+"""
 
 def get_update_query(limit, page):
     query = '''query
