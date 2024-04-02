@@ -663,6 +663,7 @@ def create_notification_query(user_id, target_id, text, target_type):
     # Target type may be: Project/Post
     return query
 
+"""
 # marcus
 def get_items_page_query(board_id, limit=500, cursor=None):
     cursor_query_part = f', after: "{cursor}"' if cursor else ''
@@ -691,6 +692,55 @@ def get_items_page_query(board_id, limit=500, cursor=None):
         }}
     }}'''
     return query
+
+"""
+# marcus2
+def get_items_page_query(board_id=None, limit=500, cursor=None):
+    item_fields = '''
+        id
+        name
+        group {
+            id
+            title
+        }
+        column_values {
+            id
+            type
+            text
+            value
+            ... on MirrorValue {
+                display_value
+            }
+        }
+    '''
+    
+    # If a cursor is provided, use the next_items_page query without board_id
+    if cursor:
+        query = f'''query {{
+            next_items_page(limit: {limit}, cursor: "{cursor}") {{
+                cursor
+                items {{
+                    {item_fields}
+                }}
+            }}
+        }}'''
+    # Otherwise, use the initial items_page query with board_id
+    elif board_id is not None:
+        query = f'''query {{
+            boards(ids: {board_id}) {{
+                items_page(limit: {limit}) {{
+                    cursor
+                    items {{
+                        {item_fields}
+                    }}
+                }}
+            }}
+        }}'''
+    else:
+        raise ValueError("board_id is required for the initial call or cursor for subsequent calls.")
+    
+    return query
+
 
 # marcus
 def get_groups_by_board_query(board_id):

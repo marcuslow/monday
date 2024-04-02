@@ -36,8 +36,17 @@ class BoardResource(BaseResource):
     def fetch_items_by_board_id(self, board_id, limit: Optional[int] = 500, cursor: Optional[str] = None):
         query = get_items_page_query(board_id, limit, cursor)
         response = self.client.execute(query)
-        items = response["data"]["boards"][0]["items_page"]["items"]
-        next_cursor = response["data"]["boards"][0]["items_page"]["cursor"]
+
+        # response["data"]["next_items_page"]["cursor"]
+        # response["data"]["next_items_page"]["items"]
+
+        if not cursor :
+            items = response["data"]["boards"][0]["items_page"]["items"]
+            next_cursor = response["data"]["boards"][0]["items_page"]["cursor"]
+        else :
+            items = response["data"]["next_items_page"]["items"]
+            next_cursor = response["data"]["next_items_page"]["cursor"]
+
         return items, next_cursor
     
     # marcus
